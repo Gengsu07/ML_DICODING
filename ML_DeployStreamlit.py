@@ -4,10 +4,12 @@ from tensorflow.keras.preprocessing import image
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 import numpy as np
+import pickle
 
 
 st.title('Klasifikasi Kamar Messy vs Clean')
-model = tf.keras.models.load_model('messy_clean_rooms')
+model_name = open('messy_clean_rooms.sav','rb')
+model = pickle.load(model_name)
 st.subheader('Upload Gambar Kamar:')
 gambar = st.file_uploader(label='Gambar',type=['png','jpg'], accept_multiple_files=False)
 if gambar is not None:
@@ -27,11 +29,16 @@ if gambar is not None:
     x = np.expand_dims(x, axis=0)
     images = np.vstack([x])
 
-    classes = model.predict(images, batch_size=10)
-    st.write(classes)
-    if classes==0:
-        st.subheader('Klasifikasi Kamar :')
-        st.write('clean')
-    else:
-        st.subheader('Klasifikasi Kamar :')
-        st.write('messy')
+    # Get the class indices from the train generator
+    class_indices = train_generator.class_indices
+
+    # Get the class labels from the class indices
+    class_labels = list(class_indices.keys())
+    # Get the predicted classes for the images
+    predicted_classes = model.predict(images, batch_size=10)
+    predicted_classes = predicted_classes.argmax(axis=-1)
+    # Get the class names for the predicted classes
+    predicted_class_names = [class_labels[i] for i in predicted_classes]
+    st.write(predicted_class_names)
+    st.title('Predicted:')
+    st.text(predicted_class_names)
