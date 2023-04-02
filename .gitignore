@@ -1,3 +1,8 @@
-datasets/
-*.savdebug.log
+*.jpeg
+*.php
+*.fcgi
+*.gif
+*.jpg
+*.png
+._*
 messy_clean_rooms.sav
