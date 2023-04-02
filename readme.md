@@ -1,11 +1,11 @@
 # Repo Belajar Machine Learning and Deep Learning by gengsu07
 
-### Image Classification
+- ### Image Classification
 
-### NLP
+- ### NLP
 
-### Time Series
+- ### Time Series
 
-### Deployment
+- ### Deployment
 
 Kurikulum by : dicoding
